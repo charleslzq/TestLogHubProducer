@@ -1,0 +1,9 @@
+server:
+  port: 8089
+ali:
+  log-hub:
+    projects:
+      - project: charleslzqsample
+        endpoint: http://cn-hangzhou.log.aliyuncs.com
+        accessId: LTAIDkzgfuszr6CO
+        accessKey: XRPL9Hug35h0I4JrSo6b2T8hdXKpAI
