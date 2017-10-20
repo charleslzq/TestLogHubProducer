@@ -22,17 +22,26 @@ public class TestController {
     @Autowired
     private LogHubProducerTemplate logHubProducerTemplate;
 
-    @Autowired
-    @LogHubProject(project = "charleslzqsample")
     private LogHubProjectTemplate logHubProjectTemplate;
 
-    @Autowired
-    @LogHubStore(project = "charleslzqsample", store = "testloghub")
     private LogHubStoreTemplate logHubStoreTemplate;
 
-    @Autowired
-    @LogHubTopic(project = "charleslzqsample", store = "testloghub", topic = "topic")
     private LogHubTopicTemplate logHubTopicTemplate;
+
+    @Autowired
+    @LogHubProject(project = "charleslzqsample")
+    public void setLogHubProjectTemplate(LogHubProjectTemplate logHubProjectTemplate) {
+        this.logHubProjectTemplate = logHubProjectTemplate;
+    }
+
+    @Autowired
+    public TestController(
+            @LogHubStore(project = "charleslzqsample", store = "testloghub") LogHubStoreTemplate logHubStoreTemplate,
+            @LogHubTopic(project = "charleslzqsample", store = "testloghub", topic = "topic") LogHubTopicTemplate logHubTopicTemplate
+    ) {
+        this.logHubStoreTemplate = logHubStoreTemplate;
+        this.logHubTopicTemplate = logHubTopicTemplate;
+    }
 
     @RequestMapping(value = "/log", method = POST)
     public void test(@RequestParam String content) {
