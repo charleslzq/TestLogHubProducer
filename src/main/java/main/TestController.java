@@ -1,5 +1,7 @@
 package main;
 
+import com.aliyun.openservices.log.common.Logs;
+import com.github.charleslzq.aliyun.loghub.annotation.LogHubListener;
 import com.github.charleslzq.aliyun.loghub.annotation.LogHubProject;
 import com.github.charleslzq.aliyun.loghub.annotation.LogHubStore;
 import com.github.charleslzq.aliyun.loghub.annotation.LogHubTopic;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -49,5 +54,14 @@ public class TestController {
         logHubProjectTemplate.send("testloghub", "project", Arrays.asList(content));
         logHubStoreTemplate.send("store", Arrays.asList(content));
         logHubTopicTemplate.send(Arrays.asList(content));
+    }
+
+    @LogHubListener(configName = "testConfig", groupFilterBeanNames = "print")
+    public void handle(Logs.Log log) {
+        System.out.println(log.getContentsList().stream()
+                .collect(Collectors.toMap(
+                        Logs.Log.Content::getKey,
+                        Logs.Log.Content::getValue
+                )));
     }
 }

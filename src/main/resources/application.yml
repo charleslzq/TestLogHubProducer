@@ -3,8 +3,14 @@ server:
 ali:
   log-hub:
     accounts:
-      - accessId: [your accessId here]
-        accessKey: [your accessKey here]
+      - accessId:
+        accessKey:
         projects:
           - project: charleslzqsample
             endpoint: http://cn-hangzhou.log.aliyuncs.com
+    consumers:
+      testConfig:
+        project: charleslzqsample
+        store: testloghub
+        groupName: testloghub
+        consumerName: testloghub
